@@ -18,7 +18,7 @@ class UserRepo:
   
   @classmethod
   async def save_user(cls, user_data: dict) -> dict:
-    users = await cls._read_all()
+    users = await cls.read_all()
 
     new_id = max([u.get("id", 0) for u in users], default=0) + 1
     user_data["id"] = new_id
@@ -31,7 +31,7 @@ class UserRepo:
 
   @classmethod
   async def get_by_username(cls, username: str) -> Optional[dict]:
-    users = await cls._read_all()
+    users = await cls.read_all()
     
     for user in users:
       if user["username"] == username:
