@@ -9,6 +9,7 @@ iniconfig==2.3.0
 isort==8.0.1
 mccabe==0.7.0
 packaging==26.0
+passlib==1.7.4
 platformdirs==4.9.2
 pluggy==1.6.0
 pydantic==2.12.5

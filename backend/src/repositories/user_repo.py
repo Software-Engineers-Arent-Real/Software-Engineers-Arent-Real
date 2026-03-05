@@ -21,7 +21,7 @@ class UserRepo:
     async def save_user(cls, user_data: dict) -> dict:
         users = await cls.read_all()
 
-        new_id = max([u.get("id", 0) for u in users], default=0) + 1
+        new_id = max((u.get("id", 0) for u in users), default=0) + 1
         user_data["id"] = new_id
         users.append(user_data)
 
