@@ -29,4 +29,3 @@ class OrderUpdate(BaseModel):
     time: int
     cusine: str
     distance: float
-    
