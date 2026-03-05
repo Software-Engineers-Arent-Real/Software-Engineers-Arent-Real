@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from typing import List
 from src.schemas.order_schema import Order
 
+
 class Item(BaseModel):
     restaurantId: int
     itemName: str
@@ -10,23 +11,25 @@ class Item(BaseModel):
     restaurant: str
     avg_rating: float
 
+
 class Restaurant(BaseModel):
-    #name: str
+    # name: str
     restaurantId: int
     menu: List[Item]
     cuisine: str
     ratings: dict
     orders: List[Order]
 
+
 class RestaurantCreate(BaseModel):
-    #name: str
+    # name: str
     menu: List[Item]
     cuisine: str
     ratings: dict
     orders: List[Order]
 
+
 class RestaurantUpdate(BaseModel):
-    #name: str
+    # name: str
     menu: List[Item]
     cuisine: str
-

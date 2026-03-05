@@ -3,6 +3,7 @@ from typing import List
 import os
 import aiofiles
 
+
 class RestaurantRepo:
     FILE_PATH = "../data/restaurants.json"
 
@@ -11,11 +12,11 @@ class RestaurantRepo:
 
         if not os.path.exists(cls.FILE_PATH):
             return []
-        
+
         async with aiofiles.open(cls.FILE_PATH, mode='r') as f:
             restaurants = await f.read()
             return json.loads(restaurants) if restaurants else []
-        
+
     @classmethod
     async def save_restaurant(cls, restaurant_data: dict) -> dict:
         restaurants = await cls.read_all()
@@ -28,4 +29,3 @@ class RestaurantRepo:
             await f.write(json.dumps(restaurants, indent=1))
 
         return restaurant_data
-    
