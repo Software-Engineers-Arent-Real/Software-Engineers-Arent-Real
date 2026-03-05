@@ -6,10 +6,11 @@ RUN WITH: pytest tests/test_integration_rating.py -v
 """
 
 import json
-import pytest
 from pathlib import Path
+
+import pytest
 from fastapi.testclient import TestClient
-from main import app  
+from main import app
 
 # Path to the actual reviews.json (same path your repo uses)
 DATA_PATH = Path(__file__).resolve().parents[1] / "data" / "reviews.json"
@@ -23,12 +24,12 @@ client = TestClient(app)
 
 @pytest.fixture(autouse=True)
 def reset_reviews_data():
-    with open(DATA_PATH, "r") as f:
+    with open(DATA_PATH, "r", encoding="utf-8") as f:
         original_data = json.load(f)
 
-    yield  
+    yield
 
-    with open(DATA_PATH, "w") as f:
+    with open(DATA_PATH, "w", encoding="utf-8") as f:
         json.dump(original_data, f, indent=2)
 
 
@@ -49,7 +50,7 @@ def test_rate_order_success():
     assert data["order_id"] == order_id
     assert data["stars"] == 5
 
-    with open(DATA_PATH, "r") as f:
+    with open(DATA_PATH, "r", encoding="utf-8") as f:
         orders = json.load(f)
     assert orders[order_id]["submitted_stars"] == 5
 
