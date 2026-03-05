@@ -1,7 +1,7 @@
+import os
 import json
 from typing import List, Optional
 import aiofiles
-import os
 
 
 class UserRepo:
