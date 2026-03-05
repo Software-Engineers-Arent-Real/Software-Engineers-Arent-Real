@@ -5,12 +5,12 @@ DATA_PATH = Path(__file__).resolve().parents[1] / "data" / "reviews.json"
 
 
 def load_orders():
-    with open(DATA_PATH, "r") as f:
+    with open(DATA_PATH, "r", encoding="utf-8") as f:
         return json.load(f)
 
 
 def save_orders(orders):
-    with open(DATA_PATH, "w") as f:
+    with open(DATA_PATH, "w", encoding="utf-8") as f:
         json.dump(orders, f, indent=2)
 
 

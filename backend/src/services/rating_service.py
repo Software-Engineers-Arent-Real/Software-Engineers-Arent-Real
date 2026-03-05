@@ -4,7 +4,6 @@ from schemas.ratings import RatingCreate
 
 
 def submit_rating(order_id: str, payload: RatingCreate):
-    
     # Check if order is there
     order = get_order(order_id)
 
@@ -21,7 +20,7 @@ def submit_rating(order_id: str, payload: RatingCreate):
             detail="This order has already been rated"
         )
 
-    updated_order = update_rating(order_id, payload.stars)
+    update_rating(order_id, payload.stars)
 
     return {
         "order_id": order_id,

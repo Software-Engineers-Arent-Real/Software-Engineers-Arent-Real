@@ -5,11 +5,13 @@ RUN WITH: pytest tests/test_unit_rating.py -v
 (from inside the src/ directory)
 """
 
-import pytest
 from unittest.mock import patch
+
+import pytest
+from pydantic import ValidationError
 from fastapi import HTTPException
-from schemas.ratings import RatingCreate
-from services.rating_service import submit_rating
+from schemas.ratings import RatingCreate  # pylint: disable=import-error
+from services.rating_service import submit_rating  # pylint: disable=import-error
 
 
 # ---------------------------------------------------------------------------
@@ -19,7 +21,7 @@ from services.rating_service import submit_rating
 @patch("services.rating_service.update_rating")
 @patch("services.rating_service.get_order")
 def test_submit_rating_success(mock_get_order, mock_update_rating):
-    # set up our mock data
+    # set up our fake data
     mock_get_order.return_value = {
         "customer_rating": 4,
         "food_temperature": "Hot",
@@ -27,7 +29,7 @@ def test_submit_rating_success(mock_get_order, mock_update_rating):
         "packaging_quality": 1,
         "food_condition": "Fair",
         "customer_satisfaction": 3,
-        "submitted_stars": None  # <-- not yet rated
+        "submitted_stars": None
     }
     mock_update_rating.return_value = {
         "customer_rating": 4,
@@ -43,7 +45,7 @@ def test_submit_rating_success(mock_get_order, mock_update_rating):
     payload = RatingCreate(stars=5)
     result = submit_rating("1d8e87M", payload)
 
-    # heck the output is what we expect
+    # check the output is what we expect
     assert result["order_id"] == "1d8e87M"
     assert result["stars"] == 5
 
@@ -83,7 +85,7 @@ def test_submit_rating_already_rated(mock_get_order):
         "packaging_quality": 1,
         "food_condition": "Fair",
         "customer_satisfaction": 3,
-        "submitted_stars": 4  # <-- already rated
+        "submitted_stars": 4
     }
 
     # should raise HTTPException with 400
@@ -99,15 +101,15 @@ def test_submit_rating_already_rated(mock_get_order):
 # Unit Test 4: RatingCreate schema validates star range (1-5)
 # ---------------------------------------------------------------------------
 
-from pydantic import ValidationError
-
 def test_rating_schema_rejects_zero_stars():
     with pytest.raises(ValidationError):
         RatingCreate(stars=0)
 
+
 def test_rating_schema_rejects_six_stars():
     with pytest.raises(ValidationError):
         RatingCreate(stars=6)
+
 
 def test_rating_schema_accepts_valid_stars():
     # All values 1 through 5 should work
