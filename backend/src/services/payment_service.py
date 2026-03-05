@@ -23,7 +23,7 @@ class PaymentService:
 
         # Checking if the payment has already been processed
         if order.payment_status == PaymentStatus.ACCEPTED:
-            raise Exception("Payment already successfully processed.")
+            raise ValueError("Payment already successfully processed.")
 
         # Validate payment details
         if not PaymentService.validate_payment(customer):
