@@ -21,5 +21,5 @@ jobs:
         pip install -r backend/requirements.txt
     - name: Analysing the code with pylint
       run: |
-        PYTHONPATH=backend pylint $(git ls-files 'backend/**/*.py') --disable=C0114,C0115,C116
+        PYTHONPATH=backend pylint $(git ls-files 'backend/**/*.py') --disable=C0114,C0115,C0116
       
