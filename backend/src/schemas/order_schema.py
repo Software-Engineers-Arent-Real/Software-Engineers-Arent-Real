@@ -1,5 +1,3 @@
-"""Order schema class module."""
-
 from pydantic import BaseModel
 
 
