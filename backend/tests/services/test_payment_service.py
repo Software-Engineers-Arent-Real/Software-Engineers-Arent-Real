@@ -59,7 +59,7 @@ async def test_process_payment_update_status():
     customer = create_customer()
     order = create_order()
 
-    updated_order = await PaymentService.process_payment(order, customer)
+    updated_order = await PaymentService.process_payment(order)
 
     # We check both possibilities as we used RNG to determine outcome
     assert updated_order.payment_status in[
@@ -82,7 +82,7 @@ async def test_duplicate_payment_prevention():
     order.payment_status = PaymentStatus.ACCEPTED
 
     with pytest.raises(Exception):
-        await PaymentService.process_payment(order, customer)
+        await PaymentService.process_payment(order)
 
 # The system allows customer to retry after failed payment
 @pytest.mark.asyncio
@@ -93,7 +93,7 @@ async def test_retry_payment_after_failed_payment():
 
     order.payment_status = PaymentStatus.REJECTED
 
-    updated_order = await PaymentService.process_payment(order,customer)
+    updated_order = await PaymentService.process_payment(order)
 
     assert updated_order.payment_status in [
         PaymentStatus.ACCEPTED,
