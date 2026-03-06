@@ -56,7 +56,6 @@ async def test_invalid_card():
 @pytest.mark.asyncio
 async def test_process_payment_update_status():
 
-    customer = create_customer()
     order = create_order()
 
     updated_order = await PaymentService.process_payment(order)
@@ -76,7 +75,6 @@ async def test_process_payment_update_status():
 @pytest.mark.asyncio
 async def test_duplicate_payment_prevention():
 
-    customer = create_customer()
     order = create_order()
 
     order.payment_status = PaymentStatus.ACCEPTED
@@ -88,7 +86,6 @@ async def test_duplicate_payment_prevention():
 @pytest.mark.asyncio
 async def test_retry_payment_after_failed_payment():
 
-    customer = create_customer()
     order = create_order()
 
     order.payment_status = PaymentStatus.REJECTED
