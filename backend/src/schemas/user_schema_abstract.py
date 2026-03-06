@@ -17,21 +17,12 @@ class UserBaseAbstract:
     username: str
 
 
-class UserRegisterAbstract(UserBaseAbstract):
-    password: str
-
-
 class UserUpdateAbstract:
     email: EmailStr | None
     name: str | None
     role: UserRole | None
     username: str | None
     password: str | None
-
-
-class UserLoginAbstract:
-    username: str
-    password: str
 
 
 class UserResponseAbstract:

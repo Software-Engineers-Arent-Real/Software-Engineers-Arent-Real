@@ -3,10 +3,8 @@ import json
 from typing import List, Optional
 import aiofiles
 
-from src.repositories.user_repo_abstract import UserRepoAbstract
 
-
-class UserRepo(UserRepoAbstract):
+class UserRepo():
     FILE_PATH = "../data/users.json"
 
     @classmethod

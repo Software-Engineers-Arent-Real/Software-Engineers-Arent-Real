@@ -1,11 +1,9 @@
 from pydantic import BaseModel, EmailStr
 from src.schemas.user_schema_abstract import (
     UserBaseAbstract,
-    UserLoginAbstract,
-    UserRegisterAbstract,
     UserResponseAbstract,
     UserRole,
-    UserUpdateAbstract,
+    UserUpdateAbstract
 )
 
 
@@ -16,7 +14,7 @@ class UserBase(UserBaseAbstract, BaseModel):
     username: str
 
 
-class UserRegister(UserRegisterAbstract, UserBase):
+class UserRegister(UserBase):
     password: str
 
 
@@ -28,7 +26,7 @@ class UserUpdate(UserUpdateAbstract, BaseModel):
     password: str | None = None
 
 
-class UserLogin(UserLoginAbstract, BaseModel):
+class UserLogin(BaseModel):
     username: str
     password: str
 
